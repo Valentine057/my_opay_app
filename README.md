@@ -104,7 +104,7 @@ flutter run
 ---
 
 ## 📸 Screenshots
-
+<Img src="lib/screens/Screenshot 2025-12-18 095209.png" width= "65%">
 ---
 
 ## 📄 License
