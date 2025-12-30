@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    _isBalanceVisible ? '₦ 54,320.00' : '****',
+                    _isBalanceVisible ? '₦ 100,000,000.00' : '****',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
