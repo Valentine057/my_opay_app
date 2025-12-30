@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'transfer_screen.dart';
 import 'history_screen.dart';
+import '../models/user_info.dart' as MyInfo;
+import '../services/user_info_service.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +14,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  MyInfo.UserInfo? userInfo;
   bool _isBalanceVisible = true;
+
+  getData() async {
+    userInfo = await UserInfoService().getUserInfo();
+    userInfo ??= MyInfo.UserInfo(
+        name: '',
+        balance: 0,
+        card: MyInfo.Card(
+          number: '',
+          expiryMonth: 0,
+          expiryYear: 0,
+          type: '',
+        ),
+        level: 0,
+        phone: '',
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.person, color: Color(0xFF00C853)),
           ),
         ),
-        title: const Text('Hi, User', style: TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text('Hi,${userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
         actions: [
           IconButton(
             icon: const Icon(Icons.headset_mic_outlined, color: Colors.white),
