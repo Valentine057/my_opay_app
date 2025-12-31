@@ -48,8 +48,8 @@ class _MainScreenState extends State<MainScreen> {
       HomeScreen(userInfo: userInfo),
       const RewardsScreen(),
       const FinanceScreen(),
-      const CardsScreen(),
-      const MeScreen(),
+      CardsScreen(userInfo: userInfo),
+      MeScreen(userInfo: userInfo),
     ];
 
     return Scaffold(

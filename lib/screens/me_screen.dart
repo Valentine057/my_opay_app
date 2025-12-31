@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'history_screen.dart';
+import '../models/user_info.dart';
 
-class MeScreen extends StatelessWidget {
-  const MeScreen({super.key});
+class MeScreen extends StatefulWidget {
+  final UserInfo? userInfo;
 
+  const MeScreen({super.key, required this.userInfo});
+
+  @override
+  State<MeScreen> createState() => _MeScreenState();
+}
+
+class _MeScreenState extends State<MeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +31,7 @@ class MeScreen extends StatelessWidget {
                 const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Wisdom',
                       style: TextStyle(
@@ -33,7 +41,7 @@ class MeScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Level 3 | 08012345678',
+                      'Level ${widget.userInfo!.level} | ${widget.userInfo!.phone}',
                       style: TextStyle(color: Colors.white70),
                     ),
                   ],
