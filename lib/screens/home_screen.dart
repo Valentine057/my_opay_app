@@ -2,44 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'transfer_screen.dart';
 import 'history_screen.dart';
-import '../models/user_info.dart' as MyInfo;
-import '../services/user_info_service.dart';
-
-
+import '../models/user_info.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final UserInfo? userInfo;
+
+  const HomeScreen({super.key, required this.userInfo});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  MyInfo.UserInfo? userInfo;
   bool _isBalanceVisible = true;
-  bool _isInfoReceived = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {
-    userInfo = await UserInfoService().getUserInfo();
-    if (userInfo != null) {
-      setState(() {
-        _isInfoReceived = true;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (!_isInfoReceived) {
-      return const CircularProgressIndicator();
-    }
-
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -52,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.person, color: Color(0xFF00C853)),
           ),
         ),
-        title: Text('Hi, ${userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text('Hi, ${widget.userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
         actions: [
           IconButton(
             icon: const Icon(Icons.headset_mic_outlined, color: Colors.white),
@@ -139,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       locale: 'en_NG',
                       symbol: '₦',
                       decimalDigits: 2
-                    ).format( userInfo!.balance) : '****',
+                    ).format(widget.userInfo!.balance) : '****',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
