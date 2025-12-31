@@ -16,25 +16,29 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   MyInfo.UserInfo? userInfo;
   bool _isBalanceVisible = true;
+  bool _isInfoReceived = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   getData() async {
     userInfo = await UserInfoService().getUserInfo();
-    userInfo ??= MyInfo.UserInfo(
-        name: '',
-        balance: 0,
-        card: MyInfo.Card(
-          number: '',
-          expiryMonth: 0,
-          expiryYear: 0,
-          type: '',
-        ),
-        level: 0,
-        phone: '',
-      );
+    if (userInfo != null) {
+      setState(() {
+        _isInfoReceived = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isInfoReceived) {
+      return const CircularProgressIndicator();
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -47,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.person, color: Color(0xFF00C853)),
           ),
         ),
-        title: Text('Hi,${userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text('Hi, ${userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
         actions: [
           IconButton(
             icon: const Icon(Icons.headset_mic_outlined, color: Colors.white),
