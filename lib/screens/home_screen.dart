@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'transfer_screen.dart';
 import 'history_screen.dart';
 import '../models/user_info.dart' as MyInfo;
@@ -134,7 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    _isBalanceVisible ? '₦ 100,000,000.00' : '****',
+                    _isBalanceVisible ? NumberFormat.currency(
+                      locale: 'en_NG',
+                      symbol: '₦',
+                      decimalDigits: 2
+                    ).format( userInfo!.balance) : '****',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,

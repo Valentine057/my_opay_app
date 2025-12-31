@@ -40,6 +40,7 @@ dependencies:
 
   # This allows XML parsing
   xml: ^6.6.1
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
