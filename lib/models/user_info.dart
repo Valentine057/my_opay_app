@@ -34,6 +34,7 @@ class UserInfo {
         expiryYear: int.parse(getCardText('expiry-year')),
         type: getCardText('type'),
         name: getCardText('name'),
+        merchant: getCardText('merchant'),
 
       ),
       level: int.parse(getText('level')),
@@ -43,6 +44,7 @@ class UserInfo {
 }
 
 class Card {
+  String merchant;
   String name;
   String number;
   int expiryMonth;
@@ -50,6 +52,7 @@ class Card {
   String type;
 
   Card({
+    required this.merchant,
     required this.name,
     required this.number,
     required this.expiryMonth,
