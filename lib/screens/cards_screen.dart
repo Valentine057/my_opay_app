@@ -116,7 +116,7 @@ class _CardsScreenState extends State<CardsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'WISDOM',
+                '${widget.userInfo!.name}',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Text(
