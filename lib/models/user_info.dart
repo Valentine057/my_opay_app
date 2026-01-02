@@ -32,7 +32,9 @@ class UserInfo {
         number: getCardText('number'),
         expiryMonth: int.parse(getCardText('expiry-month')),
         expiryYear: int.parse(getCardText('expiry-year')),
-        type: getCardText('type')
+        type: getCardText('type'),
+        name: getCardText('name'),
+
       ),
       level: int.parse(getText('level')),
       phone: getText('phone')
@@ -41,12 +43,14 @@ class UserInfo {
 }
 
 class Card {
+  String name;
   String number;
   int expiryMonth;
   int expiryYear;
   String type;
 
   Card({
+    required this.name,
     required this.number,
     required this.expiryMonth,
     required this.expiryYear,

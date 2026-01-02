@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user_info.dart';
+import '../screens/main_screen.dart';
 
 class CardsScreen extends StatefulWidget {
   final UserInfo? userInfo;
@@ -105,6 +106,7 @@ class _CardsScreenState extends State<CardsScreen> {
                   letterSpacing: 2,
                   fontWeight: FontWeight.w500,
                 ),
+
               ),
               IconButton(
                 icon: const Icon(Icons.visibility_off, color: Colors.white70),
@@ -116,7 +118,7 @@ class _CardsScreenState extends State<CardsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${widget.userInfo!.name}',
+                card.name,
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Text(
