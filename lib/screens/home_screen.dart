@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'transfer_screen.dart';
 import 'history_screen.dart';
+import '../models/user_info.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final UserInfo? userInfo;
+
+  const HomeScreen({super.key, required this.userInfo});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -26,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.person, color: Color(0xFF00C853)),
           ),
         ),
-        title: const Text('Hi, User', style: TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text('Hi, ${widget.userInfo!.name}', style: const TextStyle(color: Colors.white, fontSize: 16)),
         actions: [
           IconButton(
             icon: const Icon(Icons.headset_mic_outlined, color: Colors.white),
@@ -109,7 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    _isBalanceVisible ? '₦ 100,000,000.00' : '****',
+                    _isBalanceVisible ? NumberFormat.currency(
+                      locale: 'en_NG',
+                      symbol: '₦',
+                      decimalDigits: 2
+                    ).format(widget.userInfo!.balance) : '****',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,

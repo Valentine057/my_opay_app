@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import '../models/user_info.dart';
+import '../screens/main_screen.dart';
 
-class CardsScreen extends StatelessWidget {
-  const CardsScreen({super.key});
+class CardsScreen extends StatefulWidget {
+  final UserInfo? userInfo;
 
+  const CardsScreen({super.key, required this.userInfo});
+
+  @override
+  State<CardsScreen> createState() => _CardsScreenState();
+}
+
+class _CardsScreenState extends State<CardsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +27,7 @@ class CardsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _buildVirtualCard(),
+            _buildVirtualCard(context),
             const SizedBox(height: 24),
             _buildPhysicalCardSection(),
             const SizedBox(height: 24),
@@ -29,7 +38,9 @@ class CardsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildVirtualCard() {
+  Widget _buildVirtualCard(BuildContext context) {
+    var card = widget.userInfo!.card;
+
     return Container(
       height: 200,
       width: double.infinity,
@@ -56,9 +67,9 @@ class CardsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'OPay Verve',
-                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+              Text(
+                'Opay ${card.merchant}',
+                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -66,7 +77,7 @@ class CardsScreen extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('Virtual', style: TextStyle(color: Colors.white)),
+                child: Text(card.type, style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
@@ -87,14 +98,15 @@ class CardsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '**** **** **** 1234',
+              Text(
+                '**** **** **** ${card.number.substring(12)}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   letterSpacing: 2,
                   fontWeight: FontWeight.w500,
                 ),
+
               ),
               IconButton(
                 icon: const Icon(Icons.visibility_off, color: Colors.white70),
@@ -102,15 +114,15 @@ class CardsScreen extends StatelessWidget {
               ),
             ],
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'WISDOM',
+                card.name,
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Text(
-                'EXP 12/28',
+                'EXP ${card.expiryMonth}/${card.expiryYear}',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ],
